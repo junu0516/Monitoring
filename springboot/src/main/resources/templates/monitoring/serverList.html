@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html class="loading">
+  <head>
+    {{>part/header}}
+    <!-- <h1><%= test %></h1> -->
+  </head>
+  <style>
+    form .form-group{
+      margin-bottom: 1rem !important;
+    }
+  </style>
+  <!-- BEGIN: Body-->
+  <body class="vertical-layout vertical-menu-modern 2-columns fixed-navbar" data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+    
+    <!-- BEGIN: Header-->
+ 	{{>part/topbar}}
+    <!-- END: Header-->
+
+    <!-- BEGIN: Main Menu-->
+    {{>part/sidebar}}
+    <!-- END: Main Menu-->
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content">
+      <div class="content-overlay"></div>
+      <div class="content-wrapper">
+        <div class="content-header row">
+          <div class="content-header-left col-md-6 col-12 mb-2">
+            <h3 class="content-header-title mb-0">서버 등록 현황</h3>
+<!--            <div class="row breadcrumbs-top">-->
+<!--              <div class="breadcrumb-wrapper col-12">-->
+<!--                <ol class="breadcrumb">-->
+<!--                  <li class="breadcrumb-item"><a href="#">모니터링</a></li>-->
+<!--                  <li class="breadcrumb-item"><a href="#">시스템</a></li>-->
+<!--                  <li class="breadcrumb-item active">서버현황</li>-->
+<!--                </ol>-->
+<!--              </div>-->
+<!--            </div>-->
+          </div>
+        </div>
+        <div class="content-body">
+          <div class="row mb-1 mt-1 mt-md-0">
+            <div class="col-12">
+              <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#default"><i class="fa fa-plus"></i> 서버 등록</a>
+              <a href="#" class="btn btn-primary"><i class="fa fa-minus"></i> 서버 삭제</a>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <!-- datatable started -->
+              <div id="app-invoice-wrapper" class="">
+                <div id="app-invoice-table_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                      <div class="dataTables_length" id="app-invoice-table_length">
+                        <label>Show </label>
+                        <select name="app-invoice-table_length" aria-controls="app-invoice-table" class="custom-select custom-select-sm form-control form-control-sm">
+                          <option value="12">12</option>
+                          <option value="20">20</option>
+                          <option value="30">30</option>
+                          <option value="40">40</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                      <div id="app-invoice-table_filter" class="dataTables_filter">
+                        <label>Search : &nbsp;<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="app-invoice-table" /></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <table id="app-invoice-table" class="table dataTable no-footer dtr-column" style="width: 100%" role="grid" aria-describedby="app-invoice-table_info">
+                        <thead class="border-bottom border-dark">
+                          <tr role="row">
+                            <th class="control sorting_disabled" rowspan="1" colspan="1" style="width: 34px; display: none" aria-label=""></th>
+                            <th class="dt-checkboxes-cell dt-checkboxes-select-all sorting_asc" rowspan="1" colspan="1" style="width: 34px" data-col="1" aria-label=""><input type="checkbox" /></th>
+                            <th class="sorting" tabindex="0" aria-controls="app-invoice-table" rowspan="1" colspan="1" style="width: 34px" aria-label="">상태</th>
+                            <th class="sorting" tabindex="0" aria-controls="app-invoice-table" rowspan="1" colspan="1" style="width: 250px" aria-label="">서버명</th>
+                            <th class="sorting" tabindex="0" aria-controls="app-invoice-table" rowspan="1" colspan="1" style="width: 200px" aria-label="">서버위치</th>
+                            <th class="sorting" tabindex="0" aria-controls="app-invoice-table" rowspan="1" colspan="1" style="width: 100px" aria-label="">공인아이피</th>
+                            <th class="sorting" tabindex="0" aria-controls="app-invoice-table" rowspan="1" colspan="1" style="width: 100px" aria-label="">내부아이피</th>
+                            <th class="sorting" tabindex="0" aria-controls="app-invoice-table" rowspan="1" colspan="1" style="width: 150px" aria-label="">CPU(%)</th>
+                            <th class="sorting" tabindex="0" aria-controls="app-invoice-table" rowspan="1" colspan="1" style="width: 150px" aria-label="">메모리(%)</th>
+                            <th class="sorting" tabindex="0" aria-controls="app-invoice-table" rowspan="1" colspan="1" style="width: 150px" aria-label="">디스크(%)</th>
+                            <th class="sorting" tabindex="0" aria-controls="app-invoice-table" rowspan="1" colspan="1" style="width: 100px" aria-label="">비고</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12 col-md-5"><div class="dataTables_info" id="app-invoice-table_info" role="status" aria-live="polite">Showing 1 to 12 of 49 entries</div></div>
+                    <div class="col-sm-12 col-md-7">
+                      <div class="dataTables_paginate paging_simple_numbers" id="app-invoice-table_paginate">
+                        <ul class="pagination">
+                          <li class="paginate_button page-item previous disabled" id="app-invoice-table_previous"><a class="page-link" href="#" aria-label="Previous">«</a></li>
+                          <li class="paginate_button page-item active"><a href="#" aria-controls="app-invoice-table" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                          <li class="paginate_button page-item"><a href="#" aria-controls="app-invoice-table" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+                          <li class="paginate_button page-item"><a href="#" aria-controls="app-invoice-table" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
+                          <li class="paginate_button page-item"><a href="#" aria-controls="app-invoice-table" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
+                          <li class="paginate_button page-item"><a href="#" aria-controls="app-invoice-table" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
+                          <li class="paginate_button page-item next" id="app-invoice-table_next"><a class="page-link" href="#" aria-label="Next">»</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END: Content-->
+
+    <!-- EGIN: modal -->
+    <div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel1">서버정보 등록</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <form id="enrollForm">
+            <div class="modal-body">
+              <div class="form-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>서버명</label>
+                      <input id="serverName" name="serverName" type="text" class="form-control" placeholder="서버명" />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>서버위치</label>
+                      <input id="serverCompany" name="serverCompany" type="text" class="form-control" placeholder="서버위치" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>공인아이피</label>
+                      <input id="serverPublicIp" name="serverPublicIp" type="text" class="form-control" placeholder="공인아이피" />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>내부아이피</label>
+                      <input id="serverPrivateIp" name="serverPrivateIp" type="text" class="form-control" placeholder="내부아이피" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>구분</label>
+                      <input id="serverGubun" name="serverGubun" type="text" class="form-control" placeholder="구분" />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>운영체제</label>
+                      <select id="serverOs" name="serverOs" class="form-control custom-select">
+                        <option value="window(2016)" selected>Window Server 2016</option>
+                        <option value="centOS7">CentOS 7</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>CPU</label>
+                      <select id="serverCpu" name="serverCpu" class="form-control custom-select">
+                        <option value="2" selected>2 Core</option>
+                        <option value="4">4 Core</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>메모리</label>
+                      <select id="serverMemory" name="serverMemory" class="form-control custom-select">
+                        <option value="2" selected>2 GB</option>
+                        <option value="4">4 GB</option>
+                        <option value="8">8 GB</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group" id="diskArea">
+                      <label>디스크</label>
+                      <button type="button" class="close" onclick="addInput(this);">
+                        <span aria-hidden="true">+</span>
+                      </button>
+                      <div class="row">
+                        <div class="col-sm-2">
+                          <div class="form-group">
+                            <button type="button" onclick="removeInput(this)" class="btn btn-icon btn-pure danger mr-1"><i class="fa fa-minus-circle"></i></button>
+                          </div>
+                        </div>
+                        <div class="col-sm-5">
+                          <div class="form-group">
+                            <input name="serverDiskName" type="text" class="form-control" placeholder="구분">
+                          </div>
+                        </div>
+                        <div class="col-sm-5" style="padding-left: 0 !important;">
+                          <div class="form-group">
+                            <input name="serverDiskCapacity" type="text" class="form-control" placeholder="용량">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>비용</label>
+                      <input id="serverCost" name="serverCost" type="text" class="form-control" placeholder="비용" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>메모</label>
+                      <textarea name="serverEtc" class="form-control" id="descTextarea" rows="3" placeholder="메모" style="margin-top: 0px; margin-bottom: 0px; height: 98px"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="modal-footer">
+            <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">Close</button>
+            <button id="submitBtn" type="button" class="btn btn-outline-primary">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END: modal -->
+
+    <footer class="footer footer-static footer-light navbar-border">{{>part/footer}}</footer>
+  <script>
+
+    document.querySelector('#submitBtn').addEventListener('click',function(){
+      const serverInfo = {
+        serverName : document.getElementById('serverName').value,
+        serverCompany : document.getElementById('serverCompany').value,
+        serverPublicIp : document.getElementById('serverPublicIp').value,
+        serverPrivateIp : document.getElementById('serverPrivateIp').value,
+        serverGubun : document.getElementById('serverGubun').value,
+        serverOs : document.getElementById('serverOs').options[document.getElementById('serverOs').selectedIndex].value,
+        serverCpu : document.getElementById('serverCpu').options[document.getElementById('serverCpu').selectedIndex].value,
+        serverMemory : document.getElementById('serverMemory').options[document.getElementById('serverMemory').selectedIndex].value,
+        serverCost : document.getElementById('serverCost').value,
+        serverEtc : document.getElementById('descTextarea').value
+      }
+
+      let serverDiskInfos = [];
+      const serverDiskNames = document.getElementsByName('serverDiskName');
+      const serverDiskCapacities = document.getElementsByName('serverDiskCapacity');
+      for(let i=0;i<serverDiskNames.length;i++){
+        let obj = {
+          serverDiskName : serverDiskNames[i].value,
+          serverDiskCapacity : serverDiskCapacities[i].value
+        }
+        serverDiskInfos.push(obj);
+      }
+      serverInfo['serverDisk'] = serverDiskInfos;
+      console.log(serverInfo);
+
+      let ajaxRequest = new XMLHttpRequest();
+      ajaxRequest.onreadystatechange = function(){
+        if(ajaxRequest.readyState == ajaxRequest.DONE){
+          if(ajaxRequest.status == 200 || ajaxRequest.status == 201){
+            alert('서버정보가 정상적으로 등록되었습니다.');
+            location.reload();
+          }else{
+            alert('http request not 200');
+            return;
+          }
+        }
+      }
+
+      ajaxRequest.open('POST','/server/info',true);
+      ajaxRequest.setRequestHeader('Content-Type','application/json; charset=utf-8');
+      ajaxRequest.send(JSON.stringify(serverInfo));
+
+    });
+
+    function addInput(node){
+      let form = node.parentNode.children[2];
+      let clone = form.cloneNode(true);
+      console.log(clone);
+      node.parentNode.appendChild(form.cloneNode(true));
+    }
+
+    function removeInput(node){
+      const diskArea = document.querySelector('#diskArea');
+      if(diskArea.children.length<=3){
+        return;
+      }
+      diskArea.removeChild(node.parentNode.parentNode.parentNode);
+    }
+
+  </script>
+  </body>
+</html>

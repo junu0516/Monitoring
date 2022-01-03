@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="mapper.serverMapper">
+
+    <parameterMap id="serverP" type="kr.co.infotech.monitor.dto.server.ServerDto"></parameterMap>
+    <parameterMap id="serverDiskP" type="kr.co.infotech.monitor.dto.server.ServerDiskDto"></parameterMap>
+    <parameterMap id="serverStatusP" type="kr.co.infotech.monitor.dto.server.ServerStatusDto"></parameterMap>
+
+    <resultMap id="serverR" type="kr.co.infotech.monitor.dto.server.ServerDto"></resultMap>
+    <resultMap id="serverDiskR" type="kr.co.infotech.monitor.dto.server.ServerDiskDto"></resultMap>
+    <resultMap id="serverStatusR" type="kr.co.infotech.monitor.dto.server.ServerStatusDto"></resultMap>
+    <resultMap id="serverDiskStatusR" type="kr.co.infotech.monitor.dto.server.ServerDiskStatusDto"></resultMap>
+    <resultMap id="linuxR" type="kr.co.infotech.monitor.dto.server.LinuxServerInfoDto"></resultMap>
+
+    <!-- 서버 정보 등록 -->
+    <insert id="insertServerInfo" parameterMap="serverP" useGeneratedKeys="true" keyProperty="serverNo" keyColumn="SERVER_NO">
+        INSERT INTO SERVER
+        (
+            SERVER_NAME,
+            SERVER_COMPANY,
+            SERVER_PUBLICIP,
+            SERVER_PRIVATEIP,
+            SERVER_GUBUN,
+            SERVER_CPU,
+            SERVER_OS,
+            SERVER_MEMORY,
+            SERVER_COST,
+            SERVER_ETC
+        )
+        VALUES
+        (
+            #{serverName},
+            #{serverCompany},
+            #{serverPublicIp},
+            #{serverPrivateIp},
+            #{serverGubun},
+            #{serverCpu},
+            #{serverOs},
+            #{serverMemory},
+            #{serverCost},
+            #{serverEtc}
+        )
+    </insert>
+
+    <insert id="insertServerDiskInfo" parameterType="java.util.List">
+        INSERT INTO SERVER_DISK
+        (
+            SERVER_DISK_CAPACITY,
+            SERVER_DISK_NAME,
+            SERVER_NO
+        )
+        VALUES
+        <foreach collection="list" item="serverDisk" open="(" separator="),(" close=")">
+                #{serverDisk.serverDiskCapacity},
+                #{serverDisk.serverDiskName},
+                #{serverDisk.serverNo}
+        </foreach>
+    </insert>
+
+    <select id="selectServerInfo" parameterType="string" resultMap="serverR">
+        SELECT  SERVER_NO as serverNo
+             ,  SERVER_NAME as serverName
+             ,  SERVER_COMPANY as serverCompany
+             ,  SERVER_PUBLICIP as serverPublicIp
+             ,  SERVER_PRIVATEIP as serverPrivateIp
+             ,  SERVER_GUBUN as serverGubun
+             ,  SERVER_CPU as serverCpu
+             ,  SERVER_OS as serverOs
+             ,  SERVER_MEMORY as serverMemory
+             ,  SERVER_COST as serverCost
+             ,  SERVER_ETC as serverEtc
+          FROM  SERVER
+         WHERE  1=1
+           <if test="remoteAddr != '' and null != remoteAddr">
+               AND  SERVER_PUBLICIP = #{remoteAddr}
+           </if>
+    </select>
+
+    <select id="selectServerDiskInfo" parameterMap="serverP" resultMap="serverDiskR">
+        SELECT  SERVER_DISK_NO as serverDiskNo
+             ,  SERVER_DISK_CAPACITY as serverDiskCapacity
+             ,  SERVER_DISK_NAME as serverDiskName
+             ,  SERVER_NO as serverNo
+          FROM  SERVER_DISK
+         WHERE  SERVER_NO = #{serverNo}
+    </select>
+
+    <insert id="insertServerStatusInfo" parameterMap="serverStatusP">
+        INSERT INTO SERVER_STATUS
+        (
+            SERVER_STATUS_UUID,
+            SERVER_NO,
+            SERVER_STATUS_CPU_PERCENTAGE,
+            SERVER_STATUS_MEMORY_PERCENTAGE
+        )
+        VALUES
+        (
+            #{serverStatusUuid},
+            #{serverNo},
+            #{serverStatusCpuPercentage},
+            #{serverStatusMemoryPercentage}
+        )
+    </insert>
+
+    <insert id="insertServerDiskStatusInfo" parameterType="java.util.List">
+        INSERT INTO SERVER_DISK_STATUS
+        (
+            SERVER_DISK_NO,
+            SERVER_NO,
+            SERVER_STATUS_NO,
+            SERVER_DISK_STATUS_PERCENTAGE
+        )
+        VALUES
+        <foreach collection="list" item="serverDiskStatus" open="(" separator="),(" close=")">
+            #{serverDiskStatus.serverDiskNo},
+            #{serverDiskStatus.serverNo},
+            #{serverDiskStatus.serverStatusNo},
+            #{serverDiskStatus.serverDiskStatusPercentage}
+        </foreach>
+    </insert>
+
+    <select id="selectUpdatedServerStatus" parameterMap="serverP" resultMap="serverStatusR">
+        SELECT  SERVER_STATUS_UUID as serverStatusUuid
+             ,  SERVER_NO as serverNo
+             ,  SERVER_STATUS_CPU_PERCENTAGE as serverStatusCpuPercentage
+             ,  SERVER_STATUS_MEMORY_PERCENTAGE as serverStatusMemoryPercentage
+             ,  SERVER_STATUS_TIME as serverStatusTime
+          FROM  SERVER_STATUS
+         WHERE  SERVER_NO=#{serverNo}
+      ORDER BY  SERVER_STATUS_TIME DESC
+         LIMIT  0,1
+    </select>
+
+    <select id="selectServerDiskStatusInfo" parameterMap="serverStatusP" resultMap="serverDiskStatusR">
+        SELECT  SERVER_DISK_STATUS.SERVER_DISK_STATUS_NO as serverDiskStatusNo
+             ,  SERVER_DISK_STATUS.SERVER_DISK_NO as serverDiskNo
+             ,  SERVER_DISK_STATUS.SERVER_NO as serverNo
+             ,  SERVER_DISK_STATUS.SERVER_STATUS_NO as serverStatusNo
+             ,  SERVER_DISK_STATUS.SERVER_DISK_STATUS_PERCENTAGE as serverDiskStatusPercentage
+             ,  SERVER_DISK_STATUS.SERVER_DISK_STATUS_TIME as serverDiskStatusTime
+             ,  SERVER_DISK.SERVER_DISK_NAME as serverDiskName
+          FROM  SERVER_DISK_STATUS
+          JOIN  SERVER_DISK ON SERVER_DISK.SERVER_DISK_NO = SERVER_DISK_STATUS.SERVER_DISK_NO
+         WHERE  SERVER_DISK_STATUS.SERVER_STATUS_NO = #{serverStatusUuid}
+    </select>
+
+    <select id="selectAllLinuxIpList" parameterType="string" resultType="string">
+        SELECT  SERVER_NO AS ip
+          FROM  SERVER
+         WHERE   SERVER_OS LIKE '%centOS%'
+    </select>
+
+    <insert id="insertLinuxServerInfo" parameterMap="serverP">
+        INSERT INTO SERVER_LINUX_USERINFO
+        (
+            SERVER_NO
+            , SERVER_USERNAME
+            , SERVER_USERPWD
+        )
+        VALUES
+        (
+            #{serverNo}
+            , #{linuxUserName}
+            , #{linuxUserPwd}
+        )
+    </insert>
+
+    <select id="selectLinuxServerInfo" parameterType="string" resultMap="linuxR">
+        SELECT  SERVER_LINUX_USERINFO.SERVER_NO as serverNo
+             ,  SERVER_LINUX_USERINFO.SERVER_USERNAME as username
+             ,  SERVER_LINUX_USERINFO.SERVER_USERPWD as password
+             ,  SERVER_LINUX_USERINFO.SERVER_SSHPORT as port
+             ,  SERVER.SERVER_PUBLICIP as ip
+          FROM  SERVER_LINUX_USERINFO
+          JOIN  SERVER ON SERVER.SERVER_NO = SERVER_LINUX_USERINFO.SERVER_NO
+         WHERE  SERVER.SERVER_NO = #{serverNo}
+    </select>
+
+</mapper>

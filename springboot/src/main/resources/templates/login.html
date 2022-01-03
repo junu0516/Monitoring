@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+  <!-- BEGIN: Head-->
+  <head>
+  	{{>part/header}}
+  </head>
+  <!-- BEGIN: Body-->
+  <body class="vertical-layout vertical-menu-modern 1-column   blank-page blank-page" data-open="click" data-menu="vertical-menu-modern" data-col="1-column">
+    <!-- BEGIN: Content-->
+    <div class="app-content content">
+      <div class="content-overlay"></div>
+      <div class="content-wrapper">
+        <div class="content-header row">
+        </div>
+        <div class="content-body"><section class="row flexbox-container">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+        <div class="col-lg-4 col-md-8 col-10 box-shadow-2 p-0">
+            <div class="card border-grey border-lighten-3 m-0">
+                <div class="card-header border-0">
+                    <div class="card-title text-center">
+                        <div class="p-1">
+                            <h2>서버 모니터링</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <form class="form-horizontal form-simple" action="/monitoring/login" method="post">
+                            <fieldset class="form-group position-relative has-icon-left mb-0">
+                                <input type="text" class="form-control form-control-lg" id="userId"
+                                    placeholder="아이디 입력" name="userId" required>
+                                <div class="form-control-position">
+                                    <i class="feather icon-user"></i>
+                                </div>
+                            </fieldset>
+                            <fieldset class="form-group position-relative has-icon-left">
+                                <input type="password" class="form-control form-control-lg" id="userPassword"
+                                    placeholder="비밀번호 입력" name="userPassword" required>
+                                <div class="form-control-position">
+                                    <i class="fa fa-key"></i>
+                                </div>
+                            </fieldset>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="feather icon-unlock"></i>로그인</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-footer">
+                <!-- 
+                    <div class="">
+                        <p class="float-sm-left text-center m-0"><a href="recover-password.html"
+                                class="card-link">Recover password</a></p>
+                        <p class="float-sm-right text-center m-0">New to Stack? <a href="register-simple.html"
+                                class="card-link">Sign Up</a></p>
+                    </div>
+                -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+        </div>
+      </div>
+    </div>
+    <!-- END: Content-->
+	<footer class="footer footer-static footer-light navbar-border">{{>part/footer}}</footer>
+  </body>
+  <!-- END: Body-->
+</html>

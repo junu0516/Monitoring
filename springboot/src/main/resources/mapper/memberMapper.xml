@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="mapper.memberMapper">
+    <resultMap id="memberR" type="kr.co.infotech.monitor.dto.auth.MemberDto"/>
+    <!-- 회원정보 조회 -->
+    <select id="selectUserInfo" parameterType="string" resultMap="memberR">
+        SELECT
+        		MEMBER_NO AS memberNo
+        		, MEMBER_ID AS memberId
+        		, MEMBER_PWD AS memberPwd
+        		, MEMBER_ROLE AS memberRole
+                , MEMBER_MOD_DATE AS modDate
+          FROM  MEMBER
+         WHERE  MEMBER_ID = #{userId}
+    </select>
+</mapper>

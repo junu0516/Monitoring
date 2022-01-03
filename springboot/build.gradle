@@ -1,0 +1,52 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.5'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'kr.co.infotech'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+	/*spring boot web*/
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	
+	/*jdbc*/
+	implementation 'org.apache.commons:commons-dbcp2'
+	implementation "com.zaxxer:HikariCP"
+	implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4"
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+
+	/*spring security*/
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	
+	/*mustache*/
+	implementation 'org.springframework.boot:spring-boot-starter-mustache'
+	
+	// https://mvnrepository.com/artifact/com.jcraft/jsch
+	implementation 'com.jcraft:jsch:0.1.54'
+
+	//lombok
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
+	annotationProcessor 'org.projectlombok:lombok:1.18.20'
+}
+
+bootJar {
+	jar.enabled = true
+}
+
+jar {
+	manifest {
+		attributes 'Main-Class' : 'kr.co.infotech.monitor.MonitorApplication'
+	}
+}
